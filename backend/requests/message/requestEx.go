@@ -1,6 +1,6 @@
 package message
 
-type IdAndChannel struct {
-	Id      *string //`json:"id" form:"id"` // 主键ID
+type RecverAndChannel struct {
+	Recver  *string //`json:"id" form:"id"` // 主键ID
 	Channel *int    //`json:"channel" form:"channel"`
 }

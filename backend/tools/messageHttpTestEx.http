@@ -1,0 +1,10 @@
+#### 更新对象
+POST http://127.0.0.1:8888/simple_message/message/listObjByRecverAndChannel
+Accept: application/json, text/plain, */*
+Accept-Language: zh-CN,zh;q=0.9
+Content-Type: application/json
+ 
+{
+"channel":0
+,"recver":"somestring"
+}

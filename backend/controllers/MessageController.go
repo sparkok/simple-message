@@ -18,7 +18,7 @@ type MessageController struct {
 // @Title 创建 Message
 // @Description 创建 消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403 body is empty
 // @router /simple_message/message/createObj [post]
 func (this *MessageController) CreateObj() {
@@ -26,8 +26,30 @@ func (this *MessageController) CreateObj() {
 	var request CreateObj
 	if err = json.Unmarshal(this.Ctx.Input.RequestBody, &request); err == nil {
 
-		request.Token = Uuid()
-
+		if request.Token == nil {
+			request.Token = Uuid()
+		}
+		if request.Utc == nil {
+			request.Utc = RefInt(Utc())
+		}
+		if request.Channel == nil {
+			request.Channel = RefInt(0)
+		}
+		if request.Status == nil {
+			request.Status = RefInt(1)
+		}
+		if request.Title == nil {
+			request.Title = RefString("通知")
+		}
+		if request.Body == nil {
+			request.Body = RefString("无")
+		}
+		if request.Sender == nil || request.Recver == nil {
+			Logger.Warn(fmt.Sprintf("CreateObj %s", "无接收者"))
+			this.Data["json"] = map[string]interface{}{"error": "无接收者", "code": -1}
+			this.ServeJSON()
+			return
+		}
 		message := request.Convert2Message()
 		if _, err := messageDao.CreateObj(&message); err == nil {
 			this.Data["json"] = map[string]interface{}{"code": 0}
@@ -44,7 +66,7 @@ func (this *MessageController) CreateObj() {
 // @Title getObjById
 // @Description 根据Id获取消息
 // @Param	body		body 	string	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403 body is empty
 // @router /getObjById [post]
 func (this *MessageController) GetObjById() {
@@ -66,7 +88,7 @@ func (this *MessageController) GetObjById() {
 // @Title updateObj
 // @Description 更新消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403 body is empty
 // @router /updateObj [post]
 func (this *MessageController) UpdateObj() {
@@ -89,7 +111,7 @@ func (this *MessageController) UpdateObj() {
 // @Title listObj
 // @Description 列出 消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403 body is empty
 // @router /listObj [post]
 func (this *MessageController) ListObj() {
@@ -105,7 +127,7 @@ func (this *MessageController) ListObj() {
 // @Title Count4Page
 // @Description 分页方式列出消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403
 // @router /pageObj [post]
 func (this *MessageController) Count4Page() {
@@ -128,7 +150,7 @@ func (this *MessageController) Count4Page() {
 // @Title PageObj
 // @Description 分页方式列出消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403
 // @router /pageObj [post]
 func (this *MessageController) PageObj() {
@@ -174,7 +196,7 @@ func (this *MessageController) DeleteObj() {
 // @Title deleteObjs
 // @Description create 消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} models.Message.Id
+// @Success 200 {int} models.Message.Recver
 // @Failure 403 body is empty
 // @router /deleteObjs [delete]
 func (this *MessageController) DeleteObjs() {
