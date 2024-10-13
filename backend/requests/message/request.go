@@ -17,6 +17,8 @@ type SearchInfo struct {
  
 	//`json:"body"`
 	Body *string  
+	//`json:"channel"`
+	Channel *string  
 	//`json:"recver"`
 	Recver *string  
 	//`json:"sender"`
@@ -36,6 +38,9 @@ func (this *SearchInfo) GetConditions() string{
     var condition bytes.Buffer
     if this.Body != nil {
       condition.WriteString("and (message.body like '%" + *this.Body + "%')")
+    }
+    if this.Channel != nil {
+     condition.WriteString("and (message.channel = " + *this.Channel + ")")
     }
     if this.Recver != nil {
       condition.WriteString("and (message.recver like '%" + *this.Recver + "%')")
@@ -66,6 +71,8 @@ type CreateObj struct {
 
 	//`json:"body"`
 	Body *string 
+	//`json:"channel"`
+	Channel *int 
 	//`json:"recver"`
 	Recver *string 
 	//`json:"sender"`
@@ -84,6 +91,7 @@ func (this *CreateObj) Convert2Message() messageModel.Message  {
 	var message = messageModel.Message{}
 
 	message.Body = this.Body
+	message.Channel = this.Channel
 	message.Recver = this.Recver
 	message.Sender = this.Sender
 	
@@ -98,6 +106,8 @@ type UpdateObj struct {
 
 	//`json:"body"`
 	Body *string 
+	//`json:"channel"`
+	Channel *int 
 	//`json:"recver"`
 	Recver *string 
 	//`json:"sender"`
@@ -116,6 +126,7 @@ func (this *UpdateObj) Convert2Message() messageModel.Message  {
 	var message = messageModel.Message{}
 
 	message.Body = this.Body
+	message.Channel = this.Channel
 	message.Recver = this.Recver
 	message.Sender = this.Sender
 	

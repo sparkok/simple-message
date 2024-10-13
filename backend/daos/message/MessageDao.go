@@ -49,7 +49,7 @@ func GetObjById(token *string,tx ... *gorm.DB)(messageModel.Message,error){
 }
 //  用分页方式列出 消息
 func PageObj(conditions string,order string,curPage int,pageSize int,tx ... *gorm.DB)([]messageModel.Message,error){
-	sql := `select message.body as body,message.recver as recver,message.sender as sender,message.status as status,message.title as title,message.token as token,message.utc as utc from message `
+	sql := `select message.body as body,message.channel as channel,message.recver as recver,message.sender as sender,message.status as status,message.title as title,message.token as token,message.utc as utc from message `
 	list := []messageModel.Message{}
 	limitAndOffset := MakeLimitOffset(curPage,pageSize)
 	db := GetDb(tx ...).Raw(sql + conditions + " " + order + " " + limitAndOffset).Find(&list)

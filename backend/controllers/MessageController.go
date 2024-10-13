@@ -106,7 +106,7 @@ func (this *MessageController) ListObj() {
 // @Description 分页方式列出消息
 // @Param	body		body 	models.Message	true		"body for message content"
 // @Success 200 {int} models.Message.Id
-// @Failure 403 
+// @Failure 403
 // @router /pageObj [post]
 func (this *MessageController) Count4Page() {
 	var err error
@@ -129,7 +129,7 @@ func (this *MessageController) Count4Page() {
 // @Description 分页方式列出消息
 // @Param	body		body 	models.Message	true		"body for message content"
 // @Success 200 {int} models.Message.Id
-// @Failure 403 
+// @Failure 403
 // @router /pageObj [post]
 func (this *MessageController) PageObj() {
 	var err error
@@ -151,8 +151,8 @@ func (this *MessageController) PageObj() {
 // @Title DeleteObj
 // @Description 删除消息
 // @Param	body		body 	models.Message	true		"body for message content"
-// @Success 200 {int} 
-// @Failure 403 
+// @Success 200 {int}
+// @Failure 403
 // @router /deleteObj [post]
 func (this *MessageController) DeleteObj() {
 	var err error
@@ -171,7 +171,7 @@ func (this *MessageController) DeleteObj() {
 	return
 }
 
-// @Title deleteObjs 
+// @Title deleteObjs
 // @Description create 消息
 // @Param	body		body 	models.Message	true		"body for message content"
 // @Success 200 {int} models.Message.Id
@@ -208,5 +208,4 @@ func init() {
 	web.Router("/simple_message/message/updateObj", &MessageController{}, "post:UpdateObj")
 	web.Router("/simple_message/message/getObjById", &MessageController{}, "post:GetObjById")
 	web.Router("/simple_message/message/createObj", &MessageController{}, "post:CreateObj")
-	web.Router("/simple_message/message/actionUnread", &MessageController{}, "post:ActionUnread")
 }

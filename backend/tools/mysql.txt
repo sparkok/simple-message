@@ -3,6 +3,7 @@ drop table if exists message;
 create table message
 (
 		body VARCHAR(255) ,
+		channel Integer ,
 		recver VARCHAR(255) ,
 		sender VARCHAR(255) ,
 		status Integer ,

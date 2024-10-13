@@ -88,7 +88,10 @@ export default class Message {
     return ["Token"]
   }
   format(obj:any) :any{
-	 if(null !== obj.Status && undefined !== obj.Status) {
+	 if(null !== obj.Channel && undefined !== obj.Channel) {
+		obj.Channel = parseFloat(""+obj.Channel)
+	 }
+     if(null !== obj.Status && undefined !== obj.Status) {
 		obj.Status = parseFloat(""+obj.Status)
 	 }
      if(null !== obj.Utc && undefined !== obj.Utc) {
@@ -118,6 +121,13 @@ export default class Message {
           case 1 : return h('span',{},'未读')
         }
       },
+      query: true,
+      sorter: true
+    },
+    {
+      title: '通道',
+      dataIndex: 'Channel',
+      key: 'message.channel',
       query: true,
       sorter: true
     },

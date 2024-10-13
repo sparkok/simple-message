@@ -10,6 +10,9 @@
                   <el-option v-for="item in StatusList" :label="item.desc" :value="item.id" :key="item.id" />
                 </el-select>  
               </el-form-item>
+              <el-form-item label="通道">
+                <el-input v-model="searchInfo.Channel" placeholder="通道"/>
+              </el-form-item>
               <el-form-item label="时间">
                 <el-input v-model="searchInfo.Utc" placeholder="时间"/>
               </el-form-item>
@@ -84,6 +87,9 @@
             </el-option>
           </el-select>  
         </el-form-item>
+        <el-form-item label="通道" prop="Channel" placeholder="请输入通道" >
+          	<el-input v-model="objInfo.Channel" ></el-input>
+        </el-form-item>
         <el-form-item label="内容" prop="Body" placeholder="请输入内容" >
           	<textarea v-model="objInfo.Body" ></textarea>
         </el-form-item>
@@ -143,6 +149,11 @@ const rules = ref({
 	  message: '请填写时间 ',
 	  trigger: 'blur'
 	}],
+	Channel: [{
+	  required: false,
+	  message: '请填写通道 ',
+	  trigger: 'blur'
+	}],
 	Recver: [{
 	  required: false,
 	  message: '请填写接收 ',
@@ -165,6 +176,7 @@ const objInfo = ref({
 	Title : null,
 	Body : null,
 	Utc : null,
+	Channel : null,
 	Recver : null,
 	Sender : null
 })
@@ -272,6 +284,7 @@ const initForm = () => {
 	Title : null,
 	Body : null,
 	Utc : null,
+	Channel : null,
 	Recver : null,
 	Sender : null
 	}
