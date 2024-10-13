@@ -1,0 +1,14 @@
+
+drop table if exists message;
+create table message
+(
+		body VARCHAR(255)  -- 内容
+		,recver VARCHAR(255)  -- 接收
+		,sender VARCHAR(255)  -- 发送
+		,status Integer  -- 状态
+		,title VARCHAR(255)  -- 标题
+		,token VARCHAR(64) Primary Key 
+		,utc Integer  -- 时间
+);
+
+

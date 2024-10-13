@@ -1,0 +1,13 @@
+
+drop table if exists message;
+create table message
+(
+		body VARCHAR(255) ,
+		recver VARCHAR(255) ,
+		sender VARCHAR(255) ,
+		status Integer ,
+		title VARCHAR(255) ,
+		token VARCHAR(64) ,
+		utc BIGINT 
+		,PRIMARY KEY(token)
+);
